@@ -1,4 +1,5 @@
-1) ## Top 10 ES-6 feature 
+<span style="color:Red">Top 10 ES-6 feature</span>.
+
 
 https://medium.com/@shubham3480/features-introduced-in-es6-e8b10bd93150
 
@@ -81,7 +82,9 @@ https://medium.com/@kavisha.talsania/top-10-es6-features-every-javascript-develo
 Would you like some real-world examples? 🚀
 
 
-2) ## JavaScript provides several types of functions based on how they are declared and used. Here’s a breakdown:
+
+
+<span style="color:Red"> JavaScript provides several types of functions based on how they are declared and used. Here’s a breakdown: </span>.
 
 
 ---
@@ -235,7 +238,8 @@ Would you like a deep dive into any of these? 🚀
 
 
 
-3) ## advanced JavaScript interview questions** along with **examples and explanations** to help you prepare:  
+ 
+<span style="color:Red"> advanced JavaScript interview questions along with examples and explanations to help you prepare:</span>. 
 
 ---
 
