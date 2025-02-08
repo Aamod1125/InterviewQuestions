@@ -84,7 +84,7 @@ Would you like some real-world examples? 🚀
 
 
 
-<span style="color:Red"> JavaScript provides several types of functions based on how they are declared and used. Here’s a breakdown: </span>.
+$${\color{red}JavaScript-provides-several-types-of-functions-based-on how-they-are-declared-and-used- Here’s a breakdown:}$$
 
 
 ---
@@ -239,7 +239,9 @@ Would you like a deep dive into any of these? 🚀
 
 
  
-<span style="color:Red"> advanced JavaScript interview questions along with examples and explanations to help you prepare:</span>. 
+
+
+$${\color{red}advanced-JavaScript-interview-questions}$$
 
 ---
 
