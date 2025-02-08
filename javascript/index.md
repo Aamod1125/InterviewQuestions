@@ -1,5 +1,5 @@
-<span style="color:Red">Top 10 ES-6 feature</span>.
 
+$${\color{red}Top-10-ES6-feature }$$
 
 https://medium.com/@shubham3480/features-introduced-in-es6-e8b10bd93150
 
