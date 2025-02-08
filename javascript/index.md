@@ -1,4 +1,4 @@
-### Top 10 ES-6 feature 
+1) ## Top 10 ES-6 feature 
 
 https://medium.com/@shubham3480/features-introduced-in-es6-e8b10bd93150
 
@@ -81,7 +81,7 @@ https://medium.com/@kavisha.talsania/top-10-es6-features-every-javascript-develo
 Would you like some real-world examples? 🚀
 
 
-### JavaScript provides several types of functions based on how they are declared and used. Here’s a breakdown:
+2) ## JavaScript provides several types of functions based on how they are declared and used. Here’s a breakdown:
 
 
 ---
@@ -233,7 +233,9 @@ fetchData().then(console.log); // Output: Data fetched
 Would you like a deep dive into any of these? 🚀
 
 
-### advanced JavaScript interview questions** along with **examples and explanations** to help you prepare:  
+
+
+3) ## advanced JavaScript interview questions** along with **examples and explanations** to help you prepare:  
 
 ---
 
