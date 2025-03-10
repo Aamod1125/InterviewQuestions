@@ -246,6 +246,7 @@ $${\color{red}advanced-JavaScript-interview-questions}$$
 ---
 
 ## **1. What is Event Loop in JavaScript?**
+
 ### **Question:** Explain the event loop mechanism in JavaScript.
 
 ### **Answer:**
@@ -280,6 +281,7 @@ Inside setTimeout
 ---
 
 ## **2. Explain Closures in JavaScript**
+
 ### **Question:** What is a closure? How does it work?
 
 ### **Answer:**
@@ -306,6 +308,7 @@ Outer: Hello, Inner: World
 ---
 
 ## **3. What is Debouncing and Throttling?**
+
 ### **Question:** Explain Debouncing and Throttling with examples.
 
 ### **Answer:**  
@@ -314,6 +317,7 @@ Outer: Hello, Inner: World
 
 ### **Debouncing Example:**
 ```js
+// Debounce function
 function debounce(func, delay) {
     let timer;
     return function (...args) {
@@ -322,17 +326,30 @@ function debounce(func, delay) {
     };
 }
 
-const log = debounce(() => console.log("Debounced!"), 1000);
-window.addEventListener("resize", log);
+// Function to handle search input
+function handleSearchInput(event) {
+    const query = event.target.value;
+    console.log(`Searching for: ${query}`);
+    // Add your search logic here (e.g., API call)
+}
+
+// Get the search input element
+const searchInput = document.getElementById('search-input');
+
+// Attach the debounced event handler to the input event
+searchInput.addEventListener('input', debounce(handleSearchInput, 300));
+
+
 ```
 🔹 **Use case:** Avoid multiple function calls while typing in a search bar.
 
 ### **Throttling Example:**
 ```js
+// Throttle function
 function throttle(func, limit) {
     let lastCall = 0;
     return function (...args) {
-        let now = Date.now();
+        const now = Date.now();
         if (now - lastCall >= limit) {
             lastCall = now;
             func(...args);
@@ -340,14 +357,27 @@ function throttle(func, limit) {
     };
 }
 
-const log = throttle(() => console.log("Throttled!"), 2000);
-window.addEventListener("scroll", log);
+// Function to handle API call
+function fetchMoreData() {
+    console.log("Fetching more data...");
+    // Add your API call logic here
+    // Example: fetch('/api/data').then(response => response.json()).then(data => console.log(data));
+}
+
+// Attach the throttled event handler to the scroll event
+window.addEventListener('scroll', throttle(() => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        fetchMoreData();
+    }
+}, 2000)); // Throttle limit set to 2000 milliseconds (2 seconds)
+
 ```
 🔹 **Use case:** Controlling API calls on infinite scroll.
 
 ---
 
 ## **4. Explain Hoisting in JavaScript**
+
 ### **Question:** How does hoisting work?
 
 ### **Answer:**  
@@ -372,6 +402,7 @@ function foo() {
 ---
 
 ## **5. What is the Difference Between `==` and `===`?**
+
 ### **Question:** Explain type coercion with examples.
 
 ### **Answer:**  
@@ -390,6 +421,7 @@ console.log(null == undefined); // true (special case)
 ---
 
 ## **6. Explain `call()`, `apply()`, and `bind()`**
+
 ### **Question:** What is the difference between `call()`, `apply()`, and `bind()`?
 
 ### **Answer:**  
@@ -429,6 +461,7 @@ Hello, I'm Bob from Paris
 ---
 
 ## **7. What are WeakMap and WeakSet?**
+
 ### **Question:** How are WeakMap and WeakSet different from Map and Set?
 
 ### **Answer:**  
@@ -476,3 +509,428 @@ These **advanced JavaScript questions** test your knowledge of **core concepts**
 ✔ **Debouncing & Throttling**  
 
 Would you like more **hands-on coding challenges** or **real-world scenarios**? 🚀
+
+
+
+
+### $${\color{red} WeakMap-and-WeakSet-in-JavaScript-details}$$
+
+JavaScript provides two special collection objects, **WeakMap** and **WeakSet**, which are similar to `Map` and `Set` but have some important differences, primarily related to garbage collection and memory management.
+
+---
+
+## **1. WeakMap**
+A `WeakMap` is a collection of key-value pairs where **keys must be objects**, and values can be any type. The key-value pairs are weakly held, meaning if there are no other references to the key object, the key-value pair will be removed from memory automatically.
+
+### **Key Characteristics of WeakMap**
+1. **Keys must be objects** (not primitive values).
+2. **Weak references** – If an object key has no other references, it gets garbage collected.
+3. **No size property** – Cannot check the number of elements.
+4. **No iteration** – Cannot iterate over its elements (e.g., using `forEach` or `for...of` loops).
+5. **Supports only `set`, `get`, `has`, and `delete` methods.**
+
+### **Syntax and Methods**
+```javascript
+let weakMap = new WeakMap();
+
+// Creating objects
+let obj1 = { name: "Alice" };
+let obj2 = { name: "Bob" };
+
+// Adding key-value pairs
+weakMap.set(obj1, "Developer");
+weakMap.set(obj2, "Designer");
+
+// Retrieving values
+console.log(weakMap.get(obj1)); // "Developer"
+
+// Checking if a key exists
+console.log(weakMap.has(obj2)); // true
+
+// Deleting an entry
+weakMap.delete(obj1);
+console.log(weakMap.has(obj1)); // false
+```
+
+### **Use Case of WeakMap**
+- **Memory-efficient caching**: Storing metadata or temporary data about objects without preventing garbage collection.
+- **DOM elements handling**: Useful when associating metadata with DOM nodes, ensuring automatic cleanup when nodes are removed.
+
+```javascript
+let cache = new WeakMap();
+
+function processData(obj) {
+    if (!cache.has(obj)) {
+        cache.set(obj, `Processed: ${obj.name}`);
+    }
+    return cache.get(obj);
+}
+
+let user = { name: "Charlie" };
+console.log(processData(user)); // "Processed: Charlie"
+
+user = null; // If there are no references to user, it will be garbage collected
+```
+
+---
+
+## **2. WeakSet**
+A `WeakSet` is a collection of **objects only**, where each object is stored weakly. If no other references exist for an object, it will be automatically removed.
+
+### **Key Characteristics of WeakSet**
+1. **Only objects can be added** (no primitives like numbers or strings).
+2. **Weak references** – Objects are garbage collected when there are no other references.
+3. **No size property** – Cannot check the number of elements.
+4. **No iteration** – Cannot loop through its elements.
+5. **Supports only `add`, `has`, and `delete` methods.**
+
+### **Syntax and Methods**
+```javascript
+let weakSet = new WeakSet();
+
+// Creating objects
+let objA = { id: 1 };
+let objB = { id: 2 };
+
+// Adding objects to WeakSet
+weakSet.add(objA);
+weakSet.add(objB);
+
+// Checking if objects exist in WeakSet
+console.log(weakSet.has(objA)); // true
+
+// Removing an object
+weakSet.delete(objB);
+console.log(weakSet.has(objB)); // false
+```
+
+### **Use Case of WeakSet**
+- **Tracking live objects**: Useful for marking objects that should not be duplicated or processed again.
+- **Temporary object storage**: Keeping a reference to objects while they are in use but allowing automatic cleanup when no longer needed.
+
+```javascript
+let seenObjects = new WeakSet();
+
+function checkObject(obj) {
+    if (seenObjects.has(obj)) {
+        console.log("Already processed:", obj);
+    } else {
+        seenObjects.add(obj);
+        console.log("Processing:", obj);
+    }
+}
+
+let data = { value: 42 };
+checkObject(data); // Processing: { value: 42 }
+checkObject(data); // Already processed: { value: 42 }
+
+data = null; // If no other references exist, it will be garbage collected
+```
+
+---
+
+## **Comparison: WeakMap vs WeakSet**
+| Feature      | WeakMap                          | WeakSet                        |
+|-------------|----------------------------------|--------------------------------|
+| **Key Type** | Only objects (keys are weakly held) | Only objects (values are weakly held) |
+| **Value Type** | Any type                         | No values (just objects)       |
+| **Iteration** | ❌ Not iterable                  | ❌ Not iterable                |
+| **Size Property** | ❌ Not available              | ❌ Not available               |
+| **Methods** | `set`, `get`, `has`, `delete` | `add`, `has`, `delete` |
+| **Garbage Collection** | ✅ Removes key-value pairs when keys are no longer referenced | ✅ Removes objects when no longer referenced |
+
+---
+
+## **When to Use WeakMap and WeakSet?**
+- **Use `WeakMap`** when you need to associate data with an object while allowing garbage collection.
+- **Use `WeakSet`** when you need to keep track of objects without preventing their garbage collection.
+
+Would you like an example of how these can be used in a real-world scenario? 🚀
+
+
+
+
+### $${\color{red} Types-of-for-loop}$$
+
+JavaScript provides several types of `for` loops for iterating over arrays, objects, and other iterable structures. Here’s a breakdown of each type and when to use them:
+
+---
+
+## **1. for Loop (Traditional)**
+This is the most common and flexible loop, mainly used for iterating over arrays or when the number of iterations is known.
+
+### **Syntax:**
+```javascript
+for (initialization; condition; update) {
+    // Code to execute
+}
+```
+
+### **Example:**
+```javascript
+for (let i = 0; i < 5; i++) {
+    console.log("Iteration:", i);
+}
+```
+### **Use Case:**
+- When you need a counter.
+- When iterating through an array using an index.
+
+---
+
+## **2. for...in Loop**
+Used for iterating over the properties (keys) of an object.
+
+### **Syntax:**
+```javascript
+for (let key in object) {
+    // Code to execute
+}
+```
+
+### **Example:**
+```javascript
+let person = { name: "Alice", age: 25, city: "New York" };
+
+for (let key in person) {
+    console.log(key, ":", person[key]);
+}
+```
+### **Use Case:**
+- Iterating over object properties.
+- **Avoid using `for...in` for arrays** because it may iterate over inherited properties.
+
+---
+
+## **3. for...of Loop**
+Used for iterating over iterable objects like arrays, strings, maps, and sets.
+
+### **Syntax:**
+```javascript
+for (let value of iterable) {
+    // Code to execute
+}
+```
+
+### **Example:**
+```javascript
+let fruits = ["Apple", "Banana", "Cherry"];
+
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+```
+### **Use Case:**
+- Iterating over arrays, strings, maps, sets, and other iterable objects.
+- Preferred over `for...in` for arrays since it directly accesses values.
+
+---
+
+## **4. forEach() Method (Array Method)**
+Used to iterate over arrays but does not support `break` or `continue`.
+
+### **Syntax:**
+```javascript
+array.forEach((element, index, array) => {
+    // Code to execute
+});
+```
+
+### **Example:**
+```javascript
+let numbers = [1, 2, 3, 4];
+
+numbers.forEach((num, index) => {
+    console.log(`Index: ${index}, Value: ${num}`);
+});
+```
+### **Use Case:**
+- When you need to execute a function on each array element.
+- **Cannot be stopped using `break` or `continue`** (use `for` or `for...of` if needed).
+
+---
+
+## **Comparison Table**
+| Loop Type      | Use Case | Can Break/Continue? | Works on Objects? | Works on Arrays? |
+|---------------|---------|--------------------|------------------|-----------------|
+| `for`         | General iteration | ✅ Yes | ❌ No | ✅ Yes |
+| `for...in`    | Iterating object properties | ✅ Yes | ✅ Yes | 🚫 Avoid (may iterate over prototype) |
+| `for...of`    | Iterating iterable objects | ✅ Yes | ❌ No | ✅ Yes |
+| `forEach()`   | Running a function on array elements | ❌ No | ❌ No | ✅ Yes |
+
+Would you like more detailed examples or real-world scenarios? 😊
+
+
+
+
+$${\color{red}The- rest- and -spread- operators -in -JavaScript }$$
+
+The rest and spread operators in JavaScript both use the three-dot syntax (...), but they serve different purposes.
+
+1. Rest Operator (...)
+
+* The rest operator is used in function parameters to collect multiple arguments into an array.
+
+* It helps handle variable numbers of arguments.
+
+* It must be the last parameter in a function.
+
+# Example of Rest Operator:
+
+```
+function sum(...numbers) {
+    return numbers.reduce((acc, curr) => acc + curr, 0);
+}
+
+console.log(sum(1, 2, 3, 4)); // Output: 10
+
+```
+
+2. Spread Operator (...)
+
+* The spread operator is used to expand elements of an iterable (like arrays or objects).
+* It helps copy or merge arrays/objects.
+
+```
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5, 6]; // Expanding arr1 into arr2
+
+console.log(arr2); // Output: [1, 2, 3, 4, 5, 6]
+```
+
+
+$${\color{red} Deep - Copy - vs - Shallow - Copy - in- JavaScript }$$
+
+### **Deep Copy vs Shallow Copy in JavaScript**  
+
+When copying objects in JavaScript, we can create a **shallow copy** or a **deep copy**. The difference lies in how they handle nested objects.
+
+---
+
+## **1. What is a Shallow Copy?**  
+
+A **shallow copy** only copies **references** to nested objects instead of duplicating them. If the original object is modified, the shallow copy will reflect those changes.
+
+### **Example:**
+```javascript
+let obj1 = { 
+    name: "Alice", 
+    details: { age: 25, city: "New York" } 
+};
+
+// Shallow Copy using spread operator
+let obj2 = { ...obj1 };
+
+obj2.details.age = 30; // Modifying the nested object
+
+console.log(obj1.details.age); // Output: 30 (Original object is affected)
+console.log(obj2.details.age); // Output: 30
+```
+🔹 **Why?**  
+- `details` is a reference, so both `obj1` and `obj2` point to the **same memory location**.  
+- Changes in `obj2.details` affect `obj1.details`.
+
+### **Other Ways to Create a Shallow Copy:**
+```javascript
+let obj2 = Object.assign({}, obj1);
+```
+
+---
+
+## **2. What is a Deep Copy?**  
+
+A **deep copy** creates a completely new object, duplicating all properties and **nested objects**, so modifications do not affect the original object.
+
+### **Example using `JSON.parse(JSON.stringify())`:**
+```javascript
+let obj1 = { 
+    name: "Alice", 
+    details: { age: 25, city: "New York" } 
+};
+
+// Deep Copy
+let obj2 = JSON.parse(JSON.stringify(obj1));
+
+obj2.details.age = 30; // Modifying the nested object
+
+console.log(obj1.details.age); // Output: 25 (Original object is NOT affected)
+console.log(obj2.details.age); // Output: 30
+```
+🔹 **Why?**  
+- `JSON.stringify()` converts the object into a string.  
+- `JSON.parse()` creates a completely new object.  
+
+⚠️ **Limitation**:  
+- **Does not support functions, `undefined`, `Date`, `RegExp`, or `Map/Set`.**  
+
+---
+
+## **3. Modern Way to Deep Copy (`structuredClone`)**
+
+```javascript
+let obj1 = { 
+    name: "Alice", 
+    details: { age: 25, city: "New York" } 
+};
+
+// Deep Copy using structuredClone
+let obj2 = structuredClone(obj1);
+
+obj2.details.age = 30;
+
+console.log(obj1.details.age); // Output: 25 (Original object is NOT affected)
+console.log(obj2.details.age); // Output: 30
+```
+✅ **Supports objects with functions, arrays, and nested structures.**  
+✅ **Faster than `JSON.parse(JSON.stringify())`.**  
+
+---
+
+## **4. Deep Copy Using Lodash (`_.cloneDeep`)**
+Lodash provides an easy way to create deep copies.
+
+```javascript
+let _ = require("lodash");
+
+let obj1 = { 
+    name: "Alice", 
+    details: { age: 25, city: "New York" } 
+};
+
+// Deep Copy using lodash
+let obj2 = _.cloneDeep(obj1);
+
+obj2.details.age = 30;
+
+console.log(obj1.details.age); // Output: 25
+console.log(obj2.details.age); // Output: 30
+```
+🔹 **Why Use Lodash?**  
+- Handles `Date`, `RegExp`, `Map`, `Set`, etc.  
+- More reliable for complex objects.
+
+---
+
+## **Summary Table**
+| Copy Type | Nested Objects | Methods |
+|-----------|---------------|---------|
+| **Shallow Copy** | Shared reference (changes affect original) | `Object.assign()`, `{ ...obj }` |
+| **Deep Copy** | Completely new object (independent) | `JSON.parse(JSON.stringify())`, `structuredClone()`, `_.cloneDeep()` |
+
+---
+
+## **When to Use?**
+✅ Use **shallow copy** if you only need to copy **top-level properties**.  
+✅ Use **deep copy** when working with **nested objects** to prevent unintended modifications.  
+
+
+
+
+
+
+
+
+
+
+
+
