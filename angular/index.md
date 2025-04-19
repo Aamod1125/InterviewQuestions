@@ -25,17 +25,21 @@ npm install -g @angular/cli@17.1.0
 ```
 
 ### File stracture of angular
+
 [https://angular.dev/reference/configs/file-structure](file stracture)
 
 
 
-For a **12+ years experienced Angular developer**, interview questions typically focus on **architecture, performance optimization, state management, security, scalability, and deep internals** of Angular. Below are some advanced Angular interview questions along with their answers.
+For a **12+ years experienced Angular developer**, interview questions typically focus on **architecture, performance optimization, state management, security, scalability, and deep internals** of Angular. Below are some advanced Angular
+ 
+interview questions along with their answers.
 
 $${\color{red} advanced - Angular - interview -questions- along -with -their- answers }$$
 
 ---
 
-## **1. Angular Internals & Change Detection**
+## **1. Angular Internals & Change Detection**  
+
 ### **Q1: How does Angular’s change detection work internally?**
 **Answer:**  
 Angular uses a **zone-based change detection mechanism**. It checks the component tree to detect changes in the UI.
@@ -116,6 +120,7 @@ This approach avoids unnecessary global state libraries for small apps.
 ---
 
 ## **4. Angular Directives**
+
 ### **Q4: How do you create a custom structural directive?**
 **Answer:**  
 A **structural directive** (`*directive`) modifies the DOM by adding or removing elements.
@@ -145,6 +150,7 @@ export class IfRoleDirective {
 ---
 
 ## **5. Performance Optimization**
+
 ### **Q5: How do you optimize an Angular application?**
 **Answer:**  
 1. **Use OnPush Change Detection** to reduce checks.
@@ -167,6 +173,7 @@ trackByFn(index: number, user: User) {
 ---
 
 ## **6. Dependency Injection (DI) & Providers**
+
 ### **Q6: What are the different types of providers in Angular?**
 **Answer:**  
 Angular provides **3 types of dependency injection providers**:
@@ -180,6 +187,7 @@ Angular provides **3 types of dependency injection providers**:
 ---
 
 ## **7. Angular Security**
+   
 ### **Q7: How do you prevent XSS and CSRF attacks in Angular?**
 **Answer:**
 1. **Prevent XSS (Cross-Site Scripting)**:
@@ -191,6 +199,7 @@ Angular provides **3 types of dependency injection providers**:
    - Implement **CSRF tokens** in API requests.
 
 #### **Example: Sanitizing URLs**
+
 ```typescript
 constructor(private sanitizer: DomSanitizer) {}
 
@@ -237,6 +246,7 @@ ng build && ng run my-app:server
 ---
 
 ## **10. Monorepo & Micro Frontends**
+ 
 ### **Q10: How do you structure a monorepo for a large Angular project?**
 **Answer:**  
 Use **Nx (Nrwl)** or **Lerna** to manage multiple Angular apps/libraries in a single repository.
@@ -251,4 +261,4 @@ npx create-nx-workspace myworkspace --preset=angular
 ---
 
 These are some of the **most advanced Angular interview questions** for **12+ years experienced developers**. Would you like **hands-on coding scenarios** or **system design questions** as well? 🚀
-
+ 
